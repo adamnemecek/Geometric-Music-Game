@@ -120,7 +120,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         enemie.hidden = false
         enemie.physicsBody = SCNPhysicsBody.kinematicBody()
         enemie.physicsBody?.categoryBitMask = CollisionCategory.ENEMIE.rawValue
-        enemie.geometry?.firstMaterial?.diffuse.contents = UIColor.redColor()
+        enemie.geometry?.firstMaterial?.diffuse.contents = UIColor.RandomColor()
         self.field.addChildNode(enemie)
     }
     
@@ -153,7 +153,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                     if node.position.z > 35{
                             node.removeFromParentNode()
                     }
-                    let action = SCNAction.moveBy(SCNVector3(0.0, 0.0, 1.0), duration: NSTimeInterval(bpmPower * 5))
+                    let action = SCNAction.moveBy(SCNVector3(0.0, 0.0, 1.0), duration: NSTimeInterval(bpmPower))
                     node.runAction(action)
                     return node
                 }
