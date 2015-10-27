@@ -103,11 +103,16 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     func buildShaders(){
         let resource = NSBundle.mainBundle().URLForResource("Outline", withExtension: "shader")!
         let outline =  try! String(contentsOfURL: resource, encoding: NSUTF8StringEncoding)
-        let shaders = [SCNShaderModifierEntryPointFragment:outline]
+        let resourceTwist = NSBundle.mainBundle().URLForResource("Twisted", withExtension: "shader")!
+        let twisted =  try! String(contentsOfURL: resourceTwist, encoding: NSUTF8StringEncoding)
+        
+        
+        //[SCNShaderModifierEntryPointGeometry:twisted]
+        let shaders =   [SCNShaderModifierEntryPointFragment:outline]
         
         let material = SCNMaterial()
         material.shaderModifiers = shaders
-        self.field.geometry?.materials = [material]
+        self.player.geometry?.materials = [material]
         
     }
     
@@ -130,7 +135,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         
         // Load the scene
         self.buildScene()
-        //self.buildShaders()
+        self.buildShaders()
         self.buildRecognizers()
         self.buildSound()
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "genEnemies:", userInfo: nil, repeats: true)
@@ -153,8 +158,9 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                     if node.position.z > 35{
                             node.removeFromParentNode()
                     }
-                    let action = SCNAction.moveBy(SCNVector3(0.0, 0.0, 1.0), duration: NSTimeInterval(bpmPower))
-                    node.runAction(action)
+//                    let action = SCNAction.moveBy(SCNVector3(0.0, 0.0, 1.0), duration: NSTimeInterval(bpmPower))
+//                    node.runAction(action)
+                    node.position.z += bpmPower;
                     return node
                 }
     }

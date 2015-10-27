@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B0E4EB41BE00E53009766CE /* outline.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 5B0E4EB31BE00E53009766CE /* outline.fsh */; };
+		5B0E4EB61BE0205E009766CE /* Twisted.shader in Resources */ = {isa = PBXBuildFile; fileRef = 5B0E4EB51BE0205E009766CE /* Twisted.shader */; };
 		5B85B67F1BD9055F0015DE75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B85B67E1BD9055F0015DE75 /* AppDelegate.swift */; };
 		5B85B6811BD9055F0015DE75 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6801BD9055F0015DE75 /* art.scnassets */; };
 		5B85B6831BD9055F0015DE75 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B85B6821BD9055F0015DE75 /* GameViewController.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B0E4EB31BE00E53009766CE /* outline.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = outline.fsh; sourceTree = "<group>"; };
+		5B0E4EB51BE0205E009766CE /* Twisted.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Twisted.shader; sourceTree = "<group>"; };
 		5B85B67B1BD9055F0015DE75 /* Geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B85B67E1BD9055F0015DE75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B85B6801BD9055F0015DE75 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 			isa = PBXGroup;
 			children = (
 				5B85B6B41BD960710015DE75 /* Outline.shader */,
+				5B0E4EB31BE00E53009766CE /* outline.fsh */,
+				5B0E4EB51BE0205E009766CE /* Twisted.shader */,
 			);
 			name = Shader;
 			sourceTree = "<group>";
@@ -257,10 +263,12 @@
 			files = (
 				5B85B6811BD9055F0015DE75 /* art.scnassets in Resources */,
 				5B85B68B1BD9055F0015DE75 /* LaunchScreen.storyboard in Resources */,
+				5B0E4EB41BE00E53009766CE /* outline.fsh in Resources */,
 				5B85B6B91BD9760C0015DE75 /* star.png in Resources */,
 				5B85B6881BD9055F0015DE75 /* Assets.xcassets in Resources */,
 				5B85B6861BD9055F0015DE75 /* Main.storyboard in Resources */,
 				5B85B6B51BD960710015DE75 /* Outline.shader in Resources */,
+				5B0E4EB61BE0205E009766CE /* Twisted.shader in Resources */,
 				5B85B6B81BD9760C0015DE75 /* star.scnp in Resources */,
 				5B85B6B21BD91EE70015DE75 /* firestone.mp3 in Resources */,
 				5B85B6B11BD91EE70015DE75 /* dropkick.mp3 in Resources */,
@@ -477,6 +485,7 @@
 				5B85B69C1BD905600015DE75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5B85B69D1BD905600015DE75 /* Build configuration list for PBXNativeTarget "GeoTests" */ = {
 			isa = XCConfigurationList;
@@ -485,6 +494,7 @@
 				5B85B69F1BD905600015DE75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
