@@ -23,8 +23,6 @@
 		5B85B6B11BD91EE70015DE75 /* dropkick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6AF1BD91EE70015DE75 /* dropkick.mp3 */; };
 		5B85B6B21BD91EE70015DE75 /* firestone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6B01BD91EE70015DE75 /* firestone.mp3 */; };
 		5B85B6B51BD960710015DE75 /* Outline.shader in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6B41BD960710015DE75 /* Outline.shader */; };
-		5B85B6B81BD9760C0015DE75 /* star.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6B61BD9760C0015DE75 /* star.scnp */; };
-		5B85B6B91BD9760C0015DE75 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6B71BD9760C0015DE75 /* star.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +56,6 @@
 		5B85B6AF1BD91EE70015DE75 /* dropkick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dropkick.mp3; sourceTree = "<group>"; };
 		5B85B6B01BD91EE70015DE75 /* firestone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = firestone.mp3; sourceTree = "<group>"; };
 		5B85B6B41BD960710015DE75 /* Outline.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Outline.shader; sourceTree = "<group>"; };
-		5B85B6B61BD9760C0015DE75 /* star.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = star.scnp; sourceTree = "<group>"; };
-		5B85B6B71BD9760C0015DE75 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,8 +123,6 @@
 				5B85B6871BD9055F0015DE75 /* Assets.xcassets */,
 				5B85B6891BD9055F0015DE75 /* LaunchScreen.storyboard */,
 				5B85B68C1BD9055F0015DE75 /* Info.plist */,
-				5B85B6B61BD9760C0015DE75 /* star.scnp */,
-				5B85B6B71BD9760C0015DE75 /* star.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -264,12 +258,10 @@
 				5B85B6811BD9055F0015DE75 /* art.scnassets in Resources */,
 				5B85B68B1BD9055F0015DE75 /* LaunchScreen.storyboard in Resources */,
 				5B0E4EB41BE00E53009766CE /* outline.fsh in Resources */,
-				5B85B6B91BD9760C0015DE75 /* star.png in Resources */,
 				5B85B6881BD9055F0015DE75 /* Assets.xcassets in Resources */,
 				5B85B6861BD9055F0015DE75 /* Main.storyboard in Resources */,
 				5B85B6B51BD960710015DE75 /* Outline.shader in Resources */,
 				5B0E4EB61BE0205E009766CE /* Twisted.shader in Resources */,
-				5B85B6B81BD9760C0015DE75 /* star.scnp in Resources */,
 				5B85B6B21BD91EE70015DE75 /* firestone.mp3 in Resources */,
 				5B85B6B11BD91EE70015DE75 /* dropkick.mp3 in Resources */,
 			);
