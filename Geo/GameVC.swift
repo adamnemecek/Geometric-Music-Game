@@ -135,7 +135,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         
         // Load the scene
         self.buildScene()
-        self.buildShaders()
+        //self.buildShaders()
         self.buildRecognizers()
         self.buildSound()
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "genEnemies:", userInfo: nil, repeats: true)
