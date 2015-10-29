@@ -26,4 +26,12 @@
 
 //_output.color.a = mix(_output.color.a, (0.8 - dot(_surface.view, _surface.normal)) * _output.color.a, 1.0);
 
-_output.color.rgb = vec3(1.0) - _output.color.rgb;
+//_output.color.rgb = vec3(1.0) - _output.color.rgb;
+
+
+
+//_output.color.bg = mix(_output.color.bg, (1.0 - dot(_surface.view, _surface.normal)) * _output.color.bg, 1.0);
+
+
+_output.color.a = mix(_output.color.a, (0.8 - dot(_surface.view, _surface.normal)) * _output.color.a, 1.0);
+

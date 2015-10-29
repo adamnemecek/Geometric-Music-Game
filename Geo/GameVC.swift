@@ -39,6 +39,9 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         self.scnView.delegate = self
         self.scene.physicsWorld.contactDelegate = self
         
+        let context = EAGLContext(API: .OpenGLES3)
+        self.scnView.eaglContext = context
+        
         
         // Retrieve Elements of the scene
         self.field = self.scene!.rootNode.childNodeWithName(BOX_FIELD, recursively: false)
@@ -101,18 +104,42 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     }
     
     func buildShaders(){
-        let resource = NSBundle.mainBundle().URLForResource("Outline", withExtension: "shader")!
-        let outline =  try! String(contentsOfURL: resource, encoding: NSUTF8StringEncoding)
-        let resourceTwist = NSBundle.mainBundle().URLForResource("Twisted", withExtension: "shader")!
-        let twisted =  try! String(contentsOfURL: resourceTwist, encoding: NSUTF8StringEncoding)
+//        let resource = NSBundle.mainBundle().URLForResource("Outline", withExtension: "shader")!
+//        let outline =  try! String(contentsOfURL: resource, encoding: NSUTF8StringEncoding)
+//        let resourceTwist = NSBundle.mainBundle().URLForResource("Twisted", withExtension: "shader")!
+//        let twisted =  try! String(contentsOfURL: resourceTwist, encoding: NSUTF8StringEncoding)
+//        
+//        
+//        //[SCNShaderModifierEntryPointGeometry:twisted]
+//        let shaders =   [SCNShaderModifierEntryPointFragment:outline]
+//        
+//        let material = SCNMaterial()
+//        material.shaderModifiers = shaders
+//        self.player.geometry?.materials = [material]
         
         
-        //[SCNShaderModifierEntryPointGeometry:twisted]
-        let shaders =   [SCNShaderModifierEntryPointFragment:outline]
         
+        
+        let program = SCNProgram()
         let material = SCNMaterial()
-        material.shaderModifiers = shaders
-        self.player.geometry?.materials = [material]
+        
+        // Read the vertex shader file and set its content as our vertex shader
+        let vertexShaderPath = NSBundle.mainBundle().pathForResource("Basic", ofType:"vsh")!
+        let vertexShaderAsAString = try!  String(contentsOfFile: vertexShaderPath, encoding: NSUTF8StringEncoding)
+        program.vertexShader = vertexShaderAsAString
+        
+        // Read the fragment shader file and set its content as our fragment shader
+        let fragmentShaderPath = NSBundle.mainBundle().pathForResource("Basic", ofType:"fsh")!
+        let fragmentShaderAsAString = try! String(contentsOfFile: fragmentShaderPath, encoding: NSUTF8StringEncoding)
+        program.fragmentShader = fragmentShaderAsAString
+        
+        // Give a meaning to variables used in the shaders
+        program.setSemantic(SCNGeometrySourceSemanticVertex, forSymbol: "a_position", options: nil)
+        program.setSemantic(SCNModelViewProjectionTransform, forSymbol: "u_viewProjectionTransformMatrix", options: nil)
+        
+        material.program = program
+        self.field.geometry?.materials.append(material)
+        
         
     }
     
@@ -135,7 +162,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         
         // Load the scene
         self.buildScene()
-        //self.buildShaders()
+        self.buildShaders()
         self.buildRecognizers()
         self.buildSound()
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "genEnemies:", userInfo: nil, repeats: true)

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5B0E4EB41BE00E53009766CE /* outline.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 5B0E4EB31BE00E53009766CE /* outline.fsh */; };
 		5B0E4EB61BE0205E009766CE /* Twisted.shader in Resources */ = {isa = PBXBuildFile; fileRef = 5B0E4EB51BE0205E009766CE /* Twisted.shader */; };
+		5B5749841BE1BB26002698E7 /* Basic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 5B5749831BE1BB26002698E7 /* Basic.fsh */; };
+		5B5749861BE1BB4C002698E7 /* Basic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 5B5749851BE1BB4C002698E7 /* Basic.vsh */; };
 		5B85B67F1BD9055F0015DE75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B85B67E1BD9055F0015DE75 /* AppDelegate.swift */; };
 		5B85B6811BD9055F0015DE75 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6801BD9055F0015DE75 /* art.scnassets */; };
 		5B85B6831BD9055F0015DE75 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B85B6821BD9055F0015DE75 /* GameViewController.swift */; };
@@ -38,6 +40,8 @@
 /* Begin PBXFileReference section */
 		5B0E4EB31BE00E53009766CE /* outline.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = outline.fsh; sourceTree = "<group>"; };
 		5B0E4EB51BE0205E009766CE /* Twisted.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Twisted.shader; sourceTree = "<group>"; };
+		5B5749831BE1BB26002698E7 /* Basic.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Basic.fsh; sourceTree = "<group>"; };
+		5B5749851BE1BB4C002698E7 /* Basic.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Basic.vsh; sourceTree = "<group>"; };
 		5B85B67B1BD9055F0015DE75 /* Geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B85B67E1BD9055F0015DE75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B85B6801BD9055F0015DE75 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 				5B85B6B41BD960710015DE75 /* Outline.shader */,
 				5B0E4EB31BE00E53009766CE /* outline.fsh */,
 				5B0E4EB51BE0205E009766CE /* Twisted.shader */,
+				5B5749831BE1BB26002698E7 /* Basic.fsh */,
+				5B5749851BE1BB4C002698E7 /* Basic.vsh */,
 			);
 			name = Shader;
 			sourceTree = "<group>";
@@ -255,7 +261,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B5749861BE1BB4C002698E7 /* Basic.vsh in Resources */,
 				5B85B6811BD9055F0015DE75 /* art.scnassets in Resources */,
+				5B5749841BE1BB26002698E7 /* Basic.fsh in Resources */,
 				5B85B68B1BD9055F0015DE75 /* LaunchScreen.storyboard in Resources */,
 				5B0E4EB41BE00E53009766CE /* outline.fsh in Resources */,
 				5B85B6881BD9055F0015DE75 /* Assets.xcassets in Resources */,
