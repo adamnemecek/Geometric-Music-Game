@@ -25,6 +25,8 @@
 		5B85B6B11BD91EE70015DE75 /* dropkick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6AF1BD91EE70015DE75 /* dropkick.mp3 */; };
 		5B85B6B21BD91EE70015DE75 /* firestone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6B01BD91EE70015DE75 /* firestone.mp3 */; };
 		5B85B6B51BD960710015DE75 /* Outline.shader in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6B41BD960710015DE75 /* Outline.shader */; };
+		5BA69E2C1BE4BE7200455ABB /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA69E2B1BE4BE7200455ABB /* AudioKit.swift */; };
+		5BE049CA1BE42F96003546EC /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE049C91BE42F96003546EC /* AudioEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		5B85B6AF1BD91EE70015DE75 /* dropkick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dropkick.mp3; sourceTree = "<group>"; };
 		5B85B6B01BD91EE70015DE75 /* firestone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = firestone.mp3; sourceTree = "<group>"; };
 		5B85B6B41BD960710015DE75 /* Outline.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Outline.shader; sourceTree = "<group>"; };
+		5BA69E2B1BE4BE7200455ABB /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
+		5BE049C91BE42F96003546EC /* AudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,8 @@
 				5B85B6AC1BD91E6C0015DE75 /* protocol.swift */,
 				5B85B6A81BD91E440015DE75 /* BeatDetector.swift */,
 				5B85B6AA1BD91E5A0015DE75 /* Extension.swift */,
+				5BE049C91BE42F96003546EC /* AudioEngine.swift */,
+				5BA69E2B1BE4BE7200455ABB /* AudioKit.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -290,7 +296,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B85B6AB1BD91E5A0015DE75 /* Extension.swift in Sources */,
+				5BE049CA1BE42F96003546EC /* AudioEngine.swift in Sources */,
 				5B85B6AD1BD91E6C0015DE75 /* protocol.swift in Sources */,
+				5BA69E2C1BE4BE7200455ABB /* AudioKit.swift in Sources */,
 				5B85B6831BD9055F0015DE75 /* GameViewController.swift in Sources */,
 				5B85B6A51BD9059D0015DE75 /* GameVC.swift in Sources */,
 				5B85B67F1BD9055F0015DE75 /* AppDelegate.swift in Sources */,

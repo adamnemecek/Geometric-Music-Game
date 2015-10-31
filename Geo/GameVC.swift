@@ -29,6 +29,8 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     var player : SCNNode!
     var camera : SCNNode!
     
+    var audiokit: AudioKit!
+    
     
     // MARK: INITIALIZERS
     func buildScene(){
@@ -97,10 +99,15 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     }
     
     func buildSound(){
-        self.beatDetector = BeatDetector()
-        self.beatDetector.loadMusic("firestone", type: "mp3")
-        self.beatDetector.audioPlayer.delegate = self
-        self.beatDetector.playMusic()
+//        self.beatDetector = BeatDetector()
+//        self.beatDetector.loadMusic("firestone", type: "mp3")
+//        self.beatDetector.audioPlayer.delegate = self
+//        self.beatDetector.playMusic()
+        
+        self.audiokit = AudioKit()
+        self.audiokit.loadSound("dropkick", ext: "mp3", unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
+        self.audiokit.playSong("dropkick")
+        
     }
     
     func buildShaders(){
@@ -162,10 +169,15 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         
         // Load the scene
         self.buildScene()
-        self.buildShaders()
+        //self.buildShaders()
         self.buildRecognizers()
         self.buildSound()
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "genEnemies:", userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.audioEngine.playSong()
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -176,7 +188,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     // MARK: SCENEKIT RENDER DELEGATE
     internal func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval){
         
-        let bpmPower = self.beatDetector.powerBpmValue()
+        //let bpmPower = self.beatDetector.powerBpmValue()
         
         // Move Geometris
         _ = self.field.childNodes.filter { (node) -> Bool in
@@ -187,7 +199,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                     }
 //                    let action = SCNAction.moveBy(SCNVector3(0.0, 0.0, 1.0), duration: NSTimeInterval(bpmPower))
 //                    node.runAction(action)
-                    node.position.z += bpmPower;
+                    node.position.z += 0.1;
                     return node
                 }
     }

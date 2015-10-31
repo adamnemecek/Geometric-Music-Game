@@ -10,15 +10,6 @@ import Foundation
 import SceneKit
 
 
-//public let rawValue : Int
-//public init(rawValue:Int){ self.rawValue = rawValue}
-//
-//static let Up  = Directions(rawValue:1)
-//static let Down  = Directions(rawValue:2)
-//static let Left = Directions(rawValue:4)
-//static let Right = Directions(rawValue:8)
-
-
 struct CollisionCategory: OptionSetType {
     
     internal let rawValue : Int
