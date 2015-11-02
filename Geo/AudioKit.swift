@@ -24,7 +24,6 @@ class AudioKit: NSObject {
         let mixer = self.engine.mainMixerNode
         
         mixer.installTapOnBus(0, bufferSize: 2048, format: mixer.outputFormatForBus(0)) { (buffer, time) -> Void in
-            
                print( AudioKit.fft(buffer) )
         }
         
@@ -105,10 +104,12 @@ class AudioKit: NSObject {
         self.pinchEffect.pitch = value
     }
     
+  /// Perform FFT
   class func fft(buffer: AVAudioPCMBuffer) -> [Float] {
         
     let log2n = UInt(round(log2(Double( buffer.frameLength ))))
     let bufferSizePOT = Int(1 << log2n)
+    
     
     // Set up the transform
     let fftSetup = vDSP_create_fftsetup(log2n, Int32(kFFTRadix2))
@@ -127,14 +128,38 @@ class AudioKit: NSObject {
     var fft = [Float](count:Int(bufferSizePOT / 2), repeatedValue:0.0)
     let bufferOver2: vDSP_Length = vDSP_Length(bufferSizePOT / 2)
     vDSP_zvmags(&output, 1, &fft, 1, bufferOver2)
+
+   fft.removeFirst(fft.count / 2)
+    var db = [Float](count: fft.count, repeatedValue: 0.0)
+    var mean : Float = 1.0
+    vDSP_vdbcon(fft, 1, &mean, &db, 1, vDSP_Length(fft.count), 0)
+    
+    
+//    var sqrtFFT = [Float](count: db.count, repeatedValue: 0.0)
+//    vvsqrtf(&sqrtFFT, db, [Int32(db.count)])
+//    
+//    
+//    
+//    var normalizedMagnitudes = [Float](count: db.count, repeatedValue: 0.0)
+//    vDSP_vsmul(sqrtFFT, 1, [2.0 / Float(db.count)], &normalizedMagnitudes, 1, vDSP_Length(db.count))
+    
+   
+    //    var frequency = [Float]()
+    //    for (var i = 0; i < fft.count; i++){
+    //        frequency.append(  Float(i * 44100 / fft.count) )
+    //    }
+
+    
+    
+//    fft.removeFirst(fft.count / 2)
+//
+    let m  = db.reduce(0.0, combine: { $0 + $1})
     
     // Release the setup
     vDSP_destroy_fftsetup(fftSetup)
-    return fft;
+    return  [m / Float(db.count/2) ] //[ m / Float(fft.count/2) ];
     
     }
-    
-
     
     
 }

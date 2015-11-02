@@ -41,10 +41,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         self.scnView.delegate = self
         self.scene.physicsWorld.contactDelegate = self
         
-        let context = EAGLContext(API: .OpenGLES3)
-        self.scnView.eaglContext = context
-        
-        
         // Retrieve Elements of the scene
         self.field = self.scene!.rootNode.childNodeWithName(BOX_FIELD, recursively: false)
         self.field.physicsBody = SCNPhysicsBody.staticBody()
@@ -127,25 +123,25 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         
         
         
-        let program = SCNProgram()
-        let material = SCNMaterial()
-        
-        // Read the vertex shader file and set its content as our vertex shader
-        let vertexShaderPath = NSBundle.mainBundle().pathForResource("Basic", ofType:"vsh")!
-        let vertexShaderAsAString = try!  String(contentsOfFile: vertexShaderPath, encoding: NSUTF8StringEncoding)
-        program.vertexShader = vertexShaderAsAString
-        
-        // Read the fragment shader file and set its content as our fragment shader
-        let fragmentShaderPath = NSBundle.mainBundle().pathForResource("Basic", ofType:"fsh")!
-        let fragmentShaderAsAString = try! String(contentsOfFile: fragmentShaderPath, encoding: NSUTF8StringEncoding)
-        program.fragmentShader = fragmentShaderAsAString
-        
-        // Give a meaning to variables used in the shaders
-        program.setSemantic(SCNGeometrySourceSemanticVertex, forSymbol: "a_position", options: nil)
-        program.setSemantic(SCNModelViewProjectionTransform, forSymbol: "u_viewProjectionTransformMatrix", options: nil)
-        
-        material.program = program
-        self.field.geometry?.materials.append(material)
+//        let program = SCNProgram()
+//        let material = SCNMaterial()
+//        
+//        // Read the vertex shader file and set its content as our vertex shader
+//        let vertexShaderPath = NSBundle.mainBundle().pathForResource("Basic", ofType:"vsh")!
+//        let vertexShaderAsAString = try!  String(contentsOfFile: vertexShaderPath, encoding: NSUTF8StringEncoding)
+//        program.vertexShader = vertexShaderAsAString
+//        
+//        // Read the fragment shader file and set its content as our fragment shader
+//        let fragmentShaderPath = NSBundle.mainBundle().pathForResource("Basic", ofType:"fsh")!
+//        let fragmentShaderAsAString = try! String(contentsOfFile: fragmentShaderPath, encoding: NSUTF8StringEncoding)
+//        program.fragmentShader = fragmentShaderAsAString
+//        
+//        // Give a meaning to variables used in the shaders
+//        program.setSemantic(SCNGeometrySourceSemanticVertex, forSymbol: "a_position", options: nil)
+//        program.setSemantic(SCNModelViewProjectionTransform, forSymbol: "u_viewProjectionTransformMatrix", options: nil)
+//        
+//        material.program = program
+//        self.field.geometry?.materials.append(material)
         
         
     }
