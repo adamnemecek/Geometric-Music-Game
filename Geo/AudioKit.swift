@@ -17,18 +17,21 @@ class AudioKit: NSObject {
     var pinchEffect: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
     var content: [String:AudioComponent]
     
+    var dbPower : Float = 0.0
+    
     override init() {
         self.engine = AVAudioEngine()
         self.content = [String:AudioComponent]()
         self.engine.attachNode(self.pinchEffect)
         let mixer = self.engine.mainMixerNode
-        
+        super.init()
+
         mixer.installTapOnBus(0, bufferSize: 2048, format: mixer.outputFormatForBus(0)) { (buffer, time) -> Void in
-               print( AudioKit.fft(buffer) )
+               self.dbPower =  (1 / abs(AudioKit.fft(buffer).first!)) * 1.5
+            
         }
         
         
-        super.init()
         NSNotificationCenter.defaultCenter().addObserverForName(AVAudioEngineConfigurationChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
             print("Received a \(AVAudioEngineConfigurationChangeNotification) notification!")
             print("Receive the connection and try again")

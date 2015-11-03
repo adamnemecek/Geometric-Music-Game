@@ -14,6 +14,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
 
     // MARK: CONSTANTS
     let GAME_SCENE = "art.scnassets/game.scn"
+    let ASTEROID_SCENE = "art.scnassets/asteroid.scn"
     let BOX_FIELD  = "BoxField"
     let PLAYER = "Player"
     let ENEMY_NAME = "Enemy"
@@ -28,6 +29,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     var beatDetector  : BeatDetector!
     var player : SCNNode!
     var camera : SCNNode!
+    var asteroid: SCNNode!
     
     var audiokit: AudioKit!
     
@@ -65,6 +67,10 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         self.camera = self.scene!.rootNode.childNodeWithName(CAMERA, recursively: false)
         self.camera.physicsBody?.categoryBitMask = CollisionCategory.CAM.rawValue
         
+        // Load Asteroid
+        let asteroidScene = SCNScene(named: ASTEROID_SCENE)
+        self.asteroid = asteroidScene?.rootNode.childNodeWithName("Asteroid", recursively: false)
+        
         
         // Debug variables
         //scnView.allowsCameraControl = true
@@ -101,8 +107,8 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
 //        self.beatDetector.playMusic()
         
         self.audiokit = AudioKit()
-        self.audiokit.loadSound("dropkick", ext: "mp3", unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
-        self.audiokit.playSong("dropkick")
+        self.audiokit.loadSound("firestone", ext: "mp3", unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
+        self.audiokit.playSong("firestone")
         
     }
     
@@ -149,14 +155,25 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     
     func genEnemies(timer : NSTimer){
         let position = Int(arc4random_uniform(4)) // random position
-        let enemie = self.enemies[position].clone()
-        enemie.position.z = -20
-        enemie.name = ENEMY_GAME
-        enemie.hidden = false
-        enemie.physicsBody = SCNPhysicsBody.kinematicBody()
-        enemie.physicsBody?.categoryBitMask = CollisionCategory.ENEMIE.rawValue
-        enemie.geometry?.firstMaterial?.diffuse.contents = UIColor.RandomColor()
-        self.field.addChildNode(enemie)
+        let enemiePosition = self.enemies[position]
+        let asteroid = self.asteroid.clone()
+        asteroid.scale = SCNVector3(x:0.03, y:0.03, z:0.03)
+        asteroid.position = enemiePosition.position
+        asteroid.position.z = -20
+        asteroid.name = ENEMY_GAME
+        asteroid.hidden = false
+        asteroid.physicsBody = SCNPhysicsBody.kinematicBody()
+        asteroid.physicsBody?.categoryBitMask = CollisionCategory.ENEMIE.rawValue
+        self.field.addChildNode(asteroid)
+
+//        let enemie = self.enemies[position]
+//        enemie.position.z = -20
+//        enemie.name = ENEMY_GAME
+//        enemie.hidden = false
+//        enemie.physicsBody = SCNPhysicsBody.kinematicBody()
+//        enemie.physicsBody?.categoryBitMask = CollisionCategory.ENEMIE.rawValue
+//        enemie.geometry?.firstMaterial?.diffuse.contents = UIColor.RandomColor()
+//        self.field.addChildNode(enemie)
     }
     
     // MARK: VC LIFE CYCLE
@@ -171,10 +188,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "genEnemies:", userInfo: nil, repeats: true)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.audioEngine.playSong()
-    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true;
@@ -195,7 +208,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                     }
 //                    let action = SCNAction.moveBy(SCNVector3(0.0, 0.0, 1.0), duration: NSTimeInterval(bpmPower))
 //                    node.runAction(action)
-                    node.position.z += 0.1;
+                    node.position.z += self.audiokit.dbPower;
                     return node
                 }
     }

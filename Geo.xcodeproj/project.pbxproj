@@ -27,6 +27,11 @@
 		5B85B6B51BD960710015DE75 /* Outline.shader in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6B41BD960710015DE75 /* Outline.shader */; };
 		5BA69E2C1BE4BE7200455ABB /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA69E2B1BE4BE7200455ABB /* AudioKit.swift */; };
 		5BE049CA1BE42F96003546EC /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE049C91BE42F96003546EC /* AudioEngine.swift */; };
+		5BFFEF071BE8275E006FECED /* Reactor.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 5BFFEF051BE8275E006FECED /* Reactor.scnp */; };
+		5BFFEF081BE8275E006FECED /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BFFEF061BE8275E006FECED /* spark.png */; };
+		5BFFEF0A1BE82774006FECED /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 5BFFEF091BE82774006FECED /* Fire.scnp */; };
+		5BFFEF0D1BE82799006FECED /* StarCube.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 5BFFEF0B1BE82799006FECED /* StarCube.scnp */; };
+		5BFFEF0E1BE82799006FECED /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BFFEF0C1BE82799006FECED /* star.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +69,11 @@
 		5B85B6B41BD960710015DE75 /* Outline.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Outline.shader; sourceTree = "<group>"; };
 		5BA69E2B1BE4BE7200455ABB /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		5BE049C91BE42F96003546EC /* AudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
+		5BFFEF051BE8275E006FECED /* Reactor.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Reactor.scnp; sourceTree = "<group>"; };
+		5BFFEF061BE8275E006FECED /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		5BFFEF091BE82774006FECED /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
+		5BFFEF0B1BE82799006FECED /* StarCube.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = StarCube.scnp; sourceTree = "<group>"; };
+		5BFFEF0C1BE82799006FECED /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +141,11 @@
 				5B85B6871BD9055F0015DE75 /* Assets.xcassets */,
 				5B85B6891BD9055F0015DE75 /* LaunchScreen.storyboard */,
 				5B85B68C1BD9055F0015DE75 /* Info.plist */,
+				5BFFEF051BE8275E006FECED /* Reactor.scnp */,
+				5BFFEF061BE8275E006FECED /* spark.png */,
+				5BFFEF091BE82774006FECED /* Fire.scnp */,
+				5BFFEF0B1BE82799006FECED /* StarCube.scnp */,
+				5BFFEF0C1BE82799006FECED /* star.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -269,8 +284,12 @@
 			files = (
 				5B5749861BE1BB4C002698E7 /* Basic.vsh in Resources */,
 				5B85B6811BD9055F0015DE75 /* art.scnassets in Resources */,
+				5BFFEF071BE8275E006FECED /* Reactor.scnp in Resources */,
 				5B5749841BE1BB26002698E7 /* Basic.fsh in Resources */,
 				5B85B68B1BD9055F0015DE75 /* LaunchScreen.storyboard in Resources */,
+				5BFFEF0E1BE82799006FECED /* star.png in Resources */,
+				5BFFEF0A1BE82774006FECED /* Fire.scnp in Resources */,
+				5BFFEF081BE8275E006FECED /* spark.png in Resources */,
 				5B0E4EB41BE00E53009766CE /* outline.fsh in Resources */,
 				5B85B6881BD9055F0015DE75 /* Assets.xcassets in Resources */,
 				5B85B6861BD9055F0015DE75 /* Main.storyboard in Resources */,
@@ -278,6 +297,7 @@
 				5B0E4EB61BE0205E009766CE /* Twisted.shader in Resources */,
 				5B85B6B21BD91EE70015DE75 /* firestone.mp3 in Resources */,
 				5B85B6B11BD91EE70015DE75 /* dropkick.mp3 in Resources */,
+				5BFFEF0D1BE82799006FECED /* StarCube.scnp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
