@@ -75,7 +75,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         // Debug variables
         //scnView.allowsCameraControl = true
         scnView.showsStatistics = true
-        
+        scnView.debugOptions = .ShowBoundingBoxes 
         // Run the scene
         self.scnView.playing = true
     }
