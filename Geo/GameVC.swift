@@ -75,7 +75,8 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         // Debug variables
         //scnView.allowsCameraControl = true
         scnView.showsStatistics = true
-        scnView.debugOptions = .ShowBoundingBoxes 
+        scnView.debugOptions = .ShowBoundingBoxes
+        
         // Run the scene
         self.scnView.playing = true
     }
@@ -107,8 +108,10 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
 //        self.beatDetector.playMusic()
         
         self.audiokit = AudioKit()
-        self.audiokit.loadSound("firestone", ext: "mp3", unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
-        self.audiokit.playSong("firestone")
+        self.audiokit.loadSound("dropkick", ext: "mp3", unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
+        self.audiokit.playSong("dropkick")
+        
+//        self.audiokit.changePitchValue(-1000)
         
     }
     
