@@ -21,6 +21,10 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     let CAMERA = "Camera"
     let ENEMY_GAME = "EnemyGame"
     
+    // MARK:
+    var pathMusic: NSURL?
+    var pathMusicName: String?
+    
     // MARK: OBJECTS
     var scene   : SCNScene!
     var scnView : SCNView!
@@ -53,6 +57,9 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                     node.hidden = true
                     return node })
         
+        let playerScene = self.scene!.rootNode.childNodeWithName("Player", recursively: false)
+        self.player = playerScene?.childNodeWithName("PLAYER", recursively: true)
+        
         self.player = self.scene!.rootNode.childNodeWithName(PLAYER, recursively: false)
         self.player.physicsBody = SCNPhysicsBody.staticBody()
         self.player.physicsBody?.categoryBitMask = CollisionCategory.PLAYER.rawValue
@@ -74,8 +81,8 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         
         // Debug variables
         //scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
-        scnView.debugOptions = .ShowBoundingBoxes
+        //scnView.showsStatistics = true
+        //scnView.debugOptions = .ShowBoundingBoxes
         
         // Run the scene
         self.scnView.playing = true
@@ -102,58 +109,18 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     }
     
     func buildSound(){
-//        self.beatDetector = BeatDetector()
-//        self.beatDetector.loadMusic("firestone", type: "mp3")
-//        self.beatDetector.audioPlayer.delegate = self
-//        self.beatDetector.playMusic()
         
         self.audiokit = AudioKit()
-        self.audiokit.loadSound("dropkick", ext: "mp3", unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
-        self.audiokit.playSong("dropkick")
-        
-//        self.audiokit.changePitchValue(-1000)
-        
+        if self.pathMusicName != nil{
+            self.audiokit.loadSound(self.pathMusicName!, path: self.pathMusic, unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
+            self.audiokit.playSong(self.pathMusicName!)
+        }else{
+            self.audiokit.loadSound("dropkick", ext: "mp3", unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
+            self.audiokit.playSong("dropkick")
+        }
     }
     
-    func buildShaders(){
-//        let resource = NSBundle.mainBundle().URLForResource("Outline", withExtension: "shader")!
-//        let outline =  try! String(contentsOfURL: resource, encoding: NSUTF8StringEncoding)
-//        let resourceTwist = NSBundle.mainBundle().URLForResource("Twisted", withExtension: "shader")!
-//        let twisted =  try! String(contentsOfURL: resourceTwist, encoding: NSUTF8StringEncoding)
-//        
-//        
-//        //[SCNShaderModifierEntryPointGeometry:twisted]
-//        let shaders =   [SCNShaderModifierEntryPointFragment:outline]
-//        
-//        let material = SCNMaterial()
-//        material.shaderModifiers = shaders
-//        self.player.geometry?.materials = [material]
-        
-        
-        
-        
-//        let program = SCNProgram()
-//        let material = SCNMaterial()
-//        
-//        // Read the vertex shader file and set its content as our vertex shader
-//        let vertexShaderPath = NSBundle.mainBundle().pathForResource("Basic", ofType:"vsh")!
-//        let vertexShaderAsAString = try!  String(contentsOfFile: vertexShaderPath, encoding: NSUTF8StringEncoding)
-//        program.vertexShader = vertexShaderAsAString
-//        
-//        // Read the fragment shader file and set its content as our fragment shader
-//        let fragmentShaderPath = NSBundle.mainBundle().pathForResource("Basic", ofType:"fsh")!
-//        let fragmentShaderAsAString = try! String(contentsOfFile: fragmentShaderPath, encoding: NSUTF8StringEncoding)
-//        program.fragmentShader = fragmentShaderAsAString
-//        
-//        // Give a meaning to variables used in the shaders
-//        program.setSemantic(SCNGeometrySourceSemanticVertex, forSymbol: "a_position", options: nil)
-//        program.setSemantic(SCNModelViewProjectionTransform, forSymbol: "u_viewProjectionTransformMatrix", options: nil)
-//        
-//        material.program = program
-//        self.field.geometry?.materials.append(material)
-        
-        
-    }
+
     
     
     func genEnemies(timer : NSTimer){
@@ -168,29 +135,25 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         asteroid.physicsBody = SCNPhysicsBody.kinematicBody()
         asteroid.physicsBody?.categoryBitMask = CollisionCategory.ENEMIE.rawValue
         self.field.addChildNode(asteroid)
-
-//        let enemie = self.enemies[position]
-//        enemie.position.z = -20
-//        enemie.name = ENEMY_GAME
-//        enemie.hidden = false
-//        enemie.physicsBody = SCNPhysicsBody.kinematicBody()
-//        enemie.physicsBody?.categoryBitMask = CollisionCategory.ENEMIE.rawValue
-//        enemie.geometry?.firstMaterial?.diffuse.contents = UIColor.RandomColor()
-//        self.field.addChildNode(enemie)
     }
     
     // MARK: VC LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.navigationBar.translucent = true
         
         // Load the scene
         self.buildScene()
-        //self.buildShaders()
         self.buildRecognizers()
         self.buildSound()
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "genEnemies:", userInfo: nil, repeats: true)
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(true)
+        self.audiokit.clearEngine()
+    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true;
@@ -200,7 +163,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     // MARK: SCENEKIT RENDER DELEGATE
     internal func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval){
         
-        //let bpmPower = self.beatDetector.powerBpmValue()
         
         // Move Geometris
         _ = self.field.childNodes.filter { (node) -> Bool in
@@ -209,8 +171,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                     if node.position.z > 35{
                             node.removeFromParentNode()
                     }
-//                    let action = SCNAction.moveBy(SCNVector3(0.0, 0.0, 1.0), duration: NSTimeInterval(bpmPower))
-//                    node.runAction(action)
                     node.position.z += self.audiokit.dbPower;
                     return node
                 }
@@ -256,9 +216,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     internal func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact){
             //TODO: UPDATE SCORE
         
-                print("Begin contact: - \(contact.nodeA.name) : \(contact.nodeB.name)")
-        
-            
+            print("Begin contact: - \(contact.nodeA.name) : \(contact.nodeB.name)")
             contact.nodeB.removeFromParentNode()
         
     }

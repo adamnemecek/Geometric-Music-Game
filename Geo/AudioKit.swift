@@ -30,8 +30,6 @@ class AudioKit: NSObject {
                self.dbPower =  (1 / abs(AudioKit.fft(buffer).first!)) * 1.5
             
         }
-        
-        
         NSNotificationCenter.defaultCenter().addObserverForName(AVAudioEngineConfigurationChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
             print("Received a \(AVAudioEngineConfigurationChangeNotification) notification!")
             print("Receive the connection and try again")
@@ -88,6 +86,32 @@ class AudioKit: NSObject {
         }
     }
     
+    
+    func loadSound(name: String, path:NSURL?, unitEffect: AVAudioUnitEffect?, unitTimeEffect: AVAudioUnitTimeEffect?){
+        let url = path!
+        do{
+            let audioFile = try AVAudioFile(forReading: url)
+            let audioComponent : AudioComponent
+            
+            if unitEffect != nil{
+                audioComponent = AudioComponent(audioFile: audioFile, unitEffect: unitEffect)
+            }else if unitTimeEffect != nil{
+                audioComponent = AudioComponent(audioFile: audioFile, timeEffect:unitTimeEffect)
+            }else{
+                audioComponent = AudioComponent(audioFile: audioFile, unitEffect: nil)
+            }
+            
+            self.content[name] = audioComponent
+            self.engine.attachNode(audioComponent.audioPlayerNode)
+            audioComponent.connectToEngine(engine)
+            self.startEngine()
+        }catch{
+            print("Error to load song")
+        }
+    }
+    
+    
+    
     // Play Audio
     func playSong(name:String){
         let audioContent = self.content.filter { $0.0 == name}
@@ -105,6 +129,12 @@ class AudioKit: NSObject {
     
     func changePitchValue(value: Float) {
         self.pinchEffect.pitch = value
+    }
+    
+    
+    func clearEngine(){
+        self.engine.reset()
+        self.engine.stop()
     }
     
   /// Perform FFT
@@ -163,8 +193,6 @@ class AudioKit: NSObject {
     return  [m / Float(db.count/2) ] //[ m / Float(fft.count/2) ];
     
     }
-    
-    
 }
 
 
