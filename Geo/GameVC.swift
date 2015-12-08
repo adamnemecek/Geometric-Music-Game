@@ -57,10 +57,16 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                     node.hidden = true
                     return node })
         
-        let playerScene = self.scene!.rootNode.childNodeWithName("Player", recursively: false)
-        self.player = playerScene?.childNodeWithName("PLAYER", recursively: true)
+//        self.player = self.scene!.rootNode.childNodeWithName("PLAYER", recursively: true)
         
         self.player = self.scene!.rootNode.childNodeWithName(PLAYER, recursively: false)
+//        let playerMaterial = SCNMaterial()
+//        let materialPath = NSBundle.mainBundle().pathForResource("art.scnassets/arc170-txt-version-4-d", ofType: "tga")
+//        let image = UIImage(contentsOfFile: materialPath!)
+//        playerMaterial.diffuse.contents = image
+//        self.player.geometry?.materials = [playerMaterial]
+        
+        
         self.player.physicsBody = SCNPhysicsBody.staticBody()
         self.player.physicsBody?.categoryBitMask = CollisionCategory.PLAYER.rawValue
         self.player.physicsBody?.contactTestBitMask = CollisionCategory.ENEMIE.rawValue
@@ -78,11 +84,10 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         let asteroidScene = SCNScene(named: ASTEROID_SCENE)
         self.asteroid = asteroidScene?.rootNode.childNodeWithName("Asteroid", recursively: false)
         
-        
         // Debug variables
         //scnView.allowsCameraControl = true
-        //scnView.showsStatistics = true
-        //scnView.debugOptions = .ShowBoundingBoxes
+        scnView.showsStatistics = true
+        scnView.debugOptions = .ShowBoundingBoxes
         
         // Run the scene
         self.scnView.playing = true
@@ -119,9 +124,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
             self.audiokit.playSong("dropkick")
         }
     }
-    
-
-    
     
     func genEnemies(timer : NSTimer){
         let position = Int(arc4random_uniform(4)) // random position
@@ -162,7 +164,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
 
     // MARK: SCENEKIT RENDER DELEGATE
     internal func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval){
-        
         
         // Move Geometris
         _ = self.field.childNodes.filter { (node) -> Bool in
