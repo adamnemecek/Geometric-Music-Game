@@ -20,6 +20,9 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     let ENEMY_NAME = "Enemy"
     let CAMERA = "Camera"
     let ENEMY_GAME = "EnemyGame"
+    let OBSTACLE = "Obstacle"
+    
+    var lives: Int = 3
     
     // MARK:
     var pathMusic: NSURL?
@@ -34,7 +37,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     var player : SCNNode!
     var camera : SCNNode!
     var asteroid: SCNNode!
-    
+    var obstacle: SCNNode!
     var audiokit: AudioKit!
     
     
@@ -52,20 +55,13 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         self.field.physicsBody = SCNPhysicsBody.staticBody()
         self.field.physicsBody?.categoryBitMask = CollisionCategory.FIELD.rawValue
         
-        self.enemies = self.scene!.rootNode.childNodesPassingTest({ (node, pointer) -> Bool in node.name == self.ENEMY_NAME })
+        self.enemies = self.scene!.rootNode.childNodesPassingTest({ (node, pointer) -> Bool in
+            node.name == self.ENEMY_NAME  })
             .map({ (node) -> SCNNode in
                     node.hidden = true
                     return node })
         
-//        self.player = self.scene!.rootNode.childNodeWithName("PLAYER", recursively: true)
-        
         self.player = self.scene!.rootNode.childNodeWithName(PLAYER, recursively: false)
-//        let playerMaterial = SCNMaterial()
-//        let materialPath = NSBundle.mainBundle().pathForResource("art.scnassets/arc170-txt-version-4-d", ofType: "tga")
-//        let image = UIImage(contentsOfFile: materialPath!)
-//        playerMaterial.diffuse.contents = image
-//        self.player.geometry?.materials = [playerMaterial]
-        
         
         self.player.physicsBody = SCNPhysicsBody.staticBody()
         self.player.physicsBody?.categoryBitMask = CollisionCategory.PLAYER.rawValue
@@ -83,6 +79,10 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         // Load Asteroid
         let asteroidScene = SCNScene(named: ASTEROID_SCENE)
         self.asteroid = asteroidScene?.rootNode.childNodeWithName("Asteroid", recursively: false)
+        
+        // Load Obstacle
+        self.obstacle = self.scene!.rootNode.childNodeWithName("Obstacle", recursively: true)
+        
         
         // Debug variables
         //scnView.allowsCameraControl = true
@@ -136,6 +136,13 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         asteroid.hidden = false
         asteroid.physicsBody = SCNPhysicsBody.kinematicBody()
         asteroid.physicsBody?.categoryBitMask = CollisionCategory.ENEMIE.rawValue
+        
+        let duration = NSTimeInterval(arc4random_uniform(100)) + 100
+        let rotateX = SCNAction.rotateByAngle( CGFloat(2.0 * M_PI), aroundAxis: SCNVector3(1, 0, 0), duration: duration)
+        let rotateY = SCNAction.rotateByAngle( CGFloat(2.0 * M_PI), aroundAxis: SCNVector3(0, 1, 0), duration: duration)
+        let rotateZ = SCNAction.rotateByAngle( CGFloat(2.0 * M_PI), aroundAxis: SCNVector3(0, 0, 1), duration: duration)
+        let actions = SCNAction.group([rotateX, rotateY, rotateZ])
+        self.asteroid.runAction(SCNAction.repeatActionForever(actions))
         self.field.addChildNode(asteroid)
     }
     
@@ -172,7 +179,15 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                     if node.position.z > 35{
                             node.removeFromParentNode()
                     }
-                    node.position.z += self.audiokit.dbPower;
+                    if self.audiokit.dbPower < 0.03{
+                        node.position.z += 0.15
+                    }else if self.audiokit.dbPower > 0.21{
+                        node.position.z += 0.2
+                    }else{
+                        node.position.z += self.audiokit.dbPower
+                    }
+//                    print(self.audiokit.dbPower)
+//                    node.position.z += self.audiokit.dbPower;
                     return node
                 }
     }
@@ -216,7 +231,10 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     
     internal func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact){
             //TODO: UPDATE SCORE
-        
+            lives -= 1
+            if lives <= 0{
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            }
             print("Begin contact: - \(contact.nodeA.name) : \(contact.nodeB.name)")
             contact.nodeB.removeFromParentNode()
         
