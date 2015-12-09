@@ -106,8 +106,8 @@
                                 <rect key="frame" x="20" y="72" width="50" height="50"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Wti-7a-dFl"/>
-                                    <constraint firstAttribute="width" constant="50" id="cIV-RM-1jo"/>
+                                    <constraint firstAttribute="height" constant="50" id="OIy-iG-mbz"/>
+                                    <constraint firstAttribute="width" constant="50" id="n8v-8s-9Sn"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Menu"/>
@@ -115,15 +115,47 @@
                                     <action selector="touchMenu:" destination="YzT-AM-UMe" eventType="touchUpInside" id="lta-1e-3Sb"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Old-QO-2md">
+                                <rect key="frame" x="499" y="87" width="20" height="20"/>
+                                <animations/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.75786790780141844" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YMl-75-dvH">
+                                <rect key="frame" x="560" y="87" width="20" height="20"/>
+                                <animations/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.75786790780000002" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="W8a-lg-FDs"/>
+                                    <constraint firstAttribute="width" constant="20" id="suc-EI-Adr"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bni-e4-HEM">
+                                <rect key="frame" x="529" y="87" width="20" height="20"/>
+                                <animations/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.75786790780000002" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OWr-gy-w6e" firstAttribute="top" secondItem="U7r-kV-Swf" secondAttribute="bottom" constant="8" id="Csg-sH-7hm"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="OWr-gy-w6e" secondAttribute="leading" id="SmG-vq-6Bw"/>
+                            <constraint firstItem="Old-QO-2md" firstAttribute="width" secondItem="YMl-75-dvH" secondAttribute="width" id="A2Q-bR-KzW"/>
+                            <constraint firstItem="YMl-75-dvH" firstAttribute="top" secondItem="U7r-kV-Swf" secondAttribute="bottom" constant="23" id="JUM-Lz-oto"/>
+                            <constraint firstItem="Old-QO-2md" firstAttribute="height" secondItem="YMl-75-dvH" secondAttribute="height" id="K6N-DV-Hqr"/>
+                            <constraint firstItem="Bni-e4-HEM" firstAttribute="width" secondItem="YMl-75-dvH" secondAttribute="width" id="Ndf-Ip-MdR"/>
+                            <constraint firstItem="OWr-gy-w6e" firstAttribute="top" secondItem="U7r-kV-Swf" secondAttribute="bottom" constant="8" id="UDS-AN-KUg"/>
+                            <constraint firstItem="Bni-e4-HEM" firstAttribute="leading" secondItem="Old-QO-2md" secondAttribute="trailing" constant="10" id="WTp-XD-7iG"/>
+                            <constraint firstItem="Bni-e4-HEM" firstAttribute="centerY" secondItem="YMl-75-dvH" secondAttribute="centerY" id="acu-pl-0ok"/>
+                            <constraint firstItem="YMl-75-dvH" firstAttribute="leading" secondItem="Bni-e4-HEM" secondAttribute="trailing" constant="11" id="iT2-7B-roz"/>
+                            <constraint firstItem="Bni-e4-HEM" firstAttribute="height" secondItem="YMl-75-dvH" secondAttribute="height" id="msQ-4Z-8sU"/>
+                            <constraint firstItem="Old-QO-2md" firstAttribute="centerY" secondItem="Bni-e4-HEM" secondAttribute="centerY" id="pwa-vb-S9N"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="OWr-gy-w6e" secondAttribute="leading" id="vnN-tH-L5d"/>
+                            <constraint firstAttribute="trailing" secondItem="YMl-75-dvH" secondAttribute="trailing" constant="20" id="wVJ-da-o8w"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="life1" destination="Old-QO-2md" id="GGA-rF-XGi"/>
+                        <outlet property="life2" destination="Bni-e4-HEM" id="Lat-MP-3Hc"/>
+                        <outlet property="life3" destination="YMl-75-dvH" id="iLi-AP-MTE"/>
                         <outlet property="scnView" destination="5dF-Jg-dTO" id="5wk-4a-6nV"/>
                     </connections>
                 </viewController>

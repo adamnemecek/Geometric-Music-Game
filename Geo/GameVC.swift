@@ -10,12 +10,20 @@ import UIKit
 import SceneKit
 import AVFoundation
 import CoreMotion
+import QuartzCore
+
 
 class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDelegate, AVAudioPlayerDelegate {
 
     // MARK: IBOutlets
     
     @IBOutlet var scnView: SCNView!
+    
+    @IBOutlet weak var life1: UIView!
+    @IBOutlet weak var life2: UIView!
+    @IBOutlet weak var life3: UIView!
+    
+    
     
     // MARK: CONSTANTS
     let GAME_SCENE = "art.scnassets/game.scn"
@@ -102,8 +110,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         self.motionManager.accelerometerUpdateInterval = 0.15
         self.motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.currentQueue()!) { (accelerometerData, error) -> Void in
             
-            print(accelerometerData)
-            
             if (accelerometerData?.acceleration.x)! > 0.3 &&
                 (accelerometerData?.acceleration.x)! < 0.9{
                 
@@ -125,6 +131,10 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                 self.player.runAction(SCNAction.sequence([actionleft, actionleftBack]))
             }
         }
+        
+       self.life1.layer.cornerRadius = self.life1.frame.size.height / 2
+       self.life2.layer.cornerRadius = self.life2.frame.size.height / 2
+       self.life3.layer.cornerRadius = self.life3.frame.size.height / 2
     }
     
     func buildRecognizers(){
@@ -206,11 +216,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
 
     // MARK: SCENEKIT RENDER DELEGATE
     internal func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval){
-        
-        if lives <= 0{
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        
+
         // Move Geometris
         _ = self.field.childNodes.filter { (node) -> Bool in
                     node.name == ENEMY_GAME
@@ -270,8 +276,19 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     internal func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact){
             //TODO: UPDATE SCORE
         lives -= 1
-//        let hitAudioSource = SCNAudioSource(named: "space-explosion.wav")
-//        SCNAction.playAudioSource(hitAudioSource!, waitForCompletion: false)
+        
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let hitAudioSource = SCNAudioSource(named: "space-explosion.wav")
+            SCNAction.playAudioSource(hitAudioSource!, waitForCompletion: false)
+
+            if self.lives == 2{
+                self.life1.hidden = true
+            }else if self.lives == 1{
+                self.life2.hidden = true
+            }else{
+                self.life3.hidden = true
+            }
+        }
         if lives <= 0{
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.navigationController?.popViewControllerAnimated(true)
