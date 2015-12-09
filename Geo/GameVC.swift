@@ -12,6 +12,11 @@ import AVFoundation
 
 class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDelegate, AVAudioPlayerDelegate {
 
+    // MARK: IBOutlets
+    
+    @IBOutlet var scnView: SCNView!
+    
+    
     // MARK: CONSTANTS
     let GAME_SCENE = "art.scnassets/game.scn"
     let ASTEROID_SCENE = "art.scnassets/asteroid.scn"
@@ -30,7 +35,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     
     // MARK: OBJECTS
     var scene   : SCNScene!
-    var scnView : SCNView!
     var field   : SCNNode!
     var enemies : [SCNNode]!
     var beatDetector  : BeatDetector!
@@ -44,7 +48,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     // MARK: INITIALIZERS
     func buildScene(){
         self.scene = SCNScene(named: GAME_SCENE)
-        self.scnView = self.view as! SCNView
         self.scnView.scene = self.scene
         self.scnView.backgroundColor = UIColor.blackColor()
         self.scnView.delegate = self
@@ -188,17 +191,17 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                     }else if self.audiokit.dbPower > 0.21{
                         node.position.z += 0.2
                     }else{
-                        node.position.z += self.audiokit.dbPower
+                        node.position.z += (self.audiokit.dbPower + 0.07)
                     }
-//                    print(self.audiokit.dbPower)
                     return node
                 }
     }
     
     // MARK: AVAUDIO DELEGATE
     internal func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool){
-        
-        
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     // MARK: Gesture Recognizer
@@ -236,6 +239,11 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
             //TODO: UPDATE SCORE
             lives -= 1
         
+        if lives <= 0{
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            })
+        }
             print("Begin contact: - \(contact.nodeA.name) : \(contact.nodeB.name)")
             contact.nodeB.removeFromParentNode()
         
@@ -248,6 +256,17 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     
     
 
+    // MARK: IBAction
+    
+    @IBAction func touchMenu(sender: UIButton) {
+        self.navigationController?.popViewControllerAnimated(true)
+        
+    }
+    
+    
+    
+    
+    
     /*
     // MARK: - Navigation
 

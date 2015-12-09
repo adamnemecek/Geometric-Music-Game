@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2de-L2-Tlw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2de-L2-Tlw">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -68,7 +68,7 @@
                     <navigationItem key="navigationItem" id="w4I-XT-GVG"/>
                     <connections>
                         <outlet property="selectSong" destination="Oqe-IT-uE8" id="9ai-Ka-NZP"/>
-                        <segue destination="BV1-FR-VrT" kind="show" identifier="goToGame" id="GBY-rt-jv0"/>
+                        <segue destination="YzT-AM-UMe" kind="show" identifier="goToGame" id="73v-9S-UjV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wu3-Ea-diN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -88,7 +88,48 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1197" y="315"/>
+            <point key="canvasLocation" x="1178" y="105"/>
+        </scene>
+        <!--GameVC-->
+        <scene sceneID="bNL-fZ-zR5">
+            <objects>
+                <viewController id="YzT-AM-UMe" customClass="GameVC" customModule="Geo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U7r-kV-Swf"/>
+                        <viewControllerLayoutGuide type="bottom" id="fFd-Rc-FRE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5dF-Jg-dTO" customClass="SCNView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OWr-gy-w6e">
+                                <rect key="frame" x="20" y="72" width="50" height="50"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Wti-7a-dFl"/>
+                                    <constraint firstAttribute="width" constant="50" id="cIV-RM-1jo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Menu"/>
+                                <connections>
+                                    <action selector="touchMenu:" destination="YzT-AM-UMe" eventType="touchUpInside" id="lta-1e-3Sb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OWr-gy-w6e" firstAttribute="top" secondItem="U7r-kV-Swf" secondAttribute="bottom" constant="8" id="Csg-sH-7hm"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="OWr-gy-w6e" secondAttribute="leading" id="SmG-vq-6Bw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scnView" destination="5dF-Jg-dTO" id="5wk-4a-6nV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Drt-rI-jVB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1178" y="766"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hVN-Wx-15N">
