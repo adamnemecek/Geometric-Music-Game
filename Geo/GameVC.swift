@@ -120,8 +120,8 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
             self.audiokit.loadSound(self.pathMusicName!, path: self.pathMusic, unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
             self.audiokit.playSong(self.pathMusicName!)
         }else{
-            self.audiokit.loadSound("dropkick", ext: "mp3", unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
-            self.audiokit.playSong("dropkick")
+            self.audiokit.loadSound("firestone", ext: "mp3", unitEffect: nil, unitTimeEffect: self.audiokit.pinchEffect)
+            self.audiokit.playSong("firestone")
         }
     }
     
@@ -149,14 +149,14 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     // MARK: VC LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.navigationBarHidden = true
         self.navigationController?.navigationBar.translucent = true
         
         // Load the scene
         self.buildScene()
         self.buildRecognizers()
         self.buildSound()
-        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "genEnemies:", userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "genEnemies:", userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -171,6 +171,10 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
 
     // MARK: SCENEKIT RENDER DELEGATE
     internal func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval){
+        
+        if lives <= 0{
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
         
         // Move Geometris
         _ = self.field.childNodes.filter { (node) -> Bool in
@@ -187,7 +191,6 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
                         node.position.z += self.audiokit.dbPower
                     }
 //                    print(self.audiokit.dbPower)
-//                    node.position.z += self.audiokit.dbPower;
                     return node
                 }
     }
@@ -232,9 +235,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     internal func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact){
             //TODO: UPDATE SCORE
             lives -= 1
-            if lives <= 0{
-                self.navigationController?.popToRootViewControllerAnimated(true)
-            }
+        
             print("Begin contact: - \(contact.nodeA.name) : \(contact.nodeB.name)")
             contact.nodeB.removeFromParentNode()
         
