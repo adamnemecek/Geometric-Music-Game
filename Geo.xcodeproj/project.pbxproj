@@ -27,6 +27,11 @@
 		5B85B6B51BD960710015DE75 /* Outline.shader in Resources */ = {isa = PBXBuildFile; fileRef = 5B85B6B41BD960710015DE75 /* Outline.shader */; };
 		5BA69E2C1BE4BE7200455ABB /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA69E2B1BE4BE7200455ABB /* AudioKit.swift */; };
 		5BA7F2C81C184206005387D3 /* space-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7F2C71C184206005387D3 /* space-explosion.wav */; };
+		5BA7F2CB1C1842F8005387D3 /* Reactor.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7F2C91C1842F8005387D3 /* Reactor.scnp */; };
+		5BA7F2CC1C1842F8005387D3 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7F2CA1C1842F8005387D3 /* spark.png */; };
+		5BA7F2CF1C184326005387D3 /* Star.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7F2CD1C184326005387D3 /* Star.scnp */; };
+		5BA7F2D01C184326005387D3 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7F2CE1C184326005387D3 /* star.png */; };
+		5BB0F9561C18451300D7EE06 /* Particle.scn in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0F9551C18451300D7EE06 /* Particle.scn */; };
 		5BD35F6B1BEC3CFC004BC139 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35F6A1BEC3CFC004BC139 /* MenuVC.swift */; };
 		5BE049CA1BE42F96003546EC /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE049C91BE42F96003546EC /* AudioEngine.swift */; };
 /* End PBXBuildFile section */
@@ -66,6 +71,11 @@
 		5B85B6B41BD960710015DE75 /* Outline.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Outline.shader; sourceTree = "<group>"; };
 		5BA69E2B1BE4BE7200455ABB /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		5BA7F2C71C184206005387D3 /* space-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "space-explosion.wav"; sourceTree = "<group>"; };
+		5BA7F2C91C1842F8005387D3 /* Reactor.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Reactor.scnp; sourceTree = "<group>"; };
+		5BA7F2CA1C1842F8005387D3 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		5BA7F2CD1C184326005387D3 /* Star.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Star.scnp; sourceTree = "<group>"; };
+		5BA7F2CE1C184326005387D3 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		5BB0F9551C18451300D7EE06 /* Particle.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Particle.scn; sourceTree = "<group>"; };
 		5BD35F6A1BEC3CFC004BC139 /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		5BE049C91BE42F96003546EC /* AudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +145,11 @@
 				5B85B6871BD9055F0015DE75 /* Assets.xcassets */,
 				5B85B6891BD9055F0015DE75 /* LaunchScreen.storyboard */,
 				5B85B68C1BD9055F0015DE75 /* Info.plist */,
+				5BA7F2C91C1842F8005387D3 /* Reactor.scnp */,
+				5BA7F2CA1C1842F8005387D3 /* spark.png */,
+				5BA7F2CD1C184326005387D3 /* Star.scnp */,
+				5BA7F2CE1C184326005387D3 /* star.png */,
+				5BB0F9551C18451300D7EE06 /* Particle.scn */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -277,12 +292,17 @@
 				5B5749861BE1BB4C002698E7 /* Basic.vsh in Resources */,
 				5B85B6811BD9055F0015DE75 /* art.scnassets in Resources */,
 				5B5749841BE1BB26002698E7 /* Basic.fsh in Resources */,
+				5BA7F2CC1C1842F8005387D3 /* spark.png in Resources */,
 				5B85B68B1BD9055F0015DE75 /* LaunchScreen.storyboard in Resources */,
+				5BA7F2D01C184326005387D3 /* star.png in Resources */,
 				5B0E4EB41BE00E53009766CE /* outline.fsh in Resources */,
 				5B85B6881BD9055F0015DE75 /* Assets.xcassets in Resources */,
 				5B85B6861BD9055F0015DE75 /* Main.storyboard in Resources */,
+				5BA7F2CB1C1842F8005387D3 /* Reactor.scnp in Resources */,
 				5B85B6B51BD960710015DE75 /* Outline.shader in Resources */,
 				5B0E4EB61BE0205E009766CE /* Twisted.shader in Resources */,
+				5BA7F2CF1C184326005387D3 /* Star.scnp in Resources */,
+				5BB0F9561C18451300D7EE06 /* Particle.scn in Resources */,
 				5BA7F2C81C184206005387D3 /* space-explosion.wav in Resources */,
 				5B85B6B21BD91EE70015DE75 /* firestone.mp3 in Resources */,
 				5B85B6B11BD91EE70015DE75 /* dropkick.mp3 in Resources */,

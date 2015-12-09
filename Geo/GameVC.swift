@@ -9,13 +9,13 @@
 import UIKit
 import SceneKit
 import AVFoundation
+import CoreMotion
 
 class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDelegate, AVAudioPlayerDelegate {
 
     // MARK: IBOutlets
     
     @IBOutlet var scnView: SCNView!
-    
     
     // MARK: CONSTANTS
     let GAME_SCENE = "art.scnassets/game.scn"
@@ -44,6 +44,8 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     var obstacle: SCNNode!
     var audiokit: AudioKit!
     
+    var motionManager : CMMotionManager!
+    
     
     // MARK: INITIALIZERS
     func buildScene(){
@@ -62,7 +64,8 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
             node.name == self.ENEMY_NAME  })
             .map({ (node) -> SCNNode in
                     node.hidden = true
-                    return node })
+                    return node
+            })
         
         self.player = self.scene!.rootNode.childNodeWithName(PLAYER, recursively: false)
         
@@ -71,8 +74,8 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         self.player.physicsBody?.contactTestBitMask = CollisionCategory.ENEMIE.rawValue
         
         // Animation player
-        let animationUp = SCNAction.moveByX(0.0, y: 0.1, z: 0.0, duration: 5)
-        let animationDown = SCNAction.moveByX(0.0, y: -0.1, z: 0.0, duration: 5)
+        let animationUp = SCNAction.moveByX(0.0, y: 0.2, z: 0.0, duration: 5)
+        let animationDown = SCNAction.moveByX(0.0, y: -0.2, z: 0.0, duration: 5)
         let mix = SCNAction.sequence([animationUp, animationDown])
         self.player.runAction(SCNAction.repeatActionForever(mix))
         
@@ -86,14 +89,42 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         // Load Obstacle
         self.obstacle = self.scene!.rootNode.childNodeWithName("Obstacle", recursively: true)
         
-        
         // Debug variables
         //scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
-        scnView.debugOptions = .ShowBoundingBoxes
+        //scnView.showsStatistics = true
+        //scnView.debugOptions = .ShowBoundingBoxes
         
         // Run the scene
         self.scnView.playing = true
+        
+        // Motion Manager
+        self.motionManager = CMMotionManager()
+        self.motionManager.accelerometerUpdateInterval = 0.15
+        self.motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.currentQueue()!) { (accelerometerData, error) -> Void in
+            
+            print(accelerometerData)
+            
+            if (accelerometerData?.acceleration.x)! > 0.3 &&
+                (accelerometerData?.acceleration.x)! < 0.9{
+                
+                let action = SCNAction.rotateByAngle(CGFloat(-45 * M_PI / 180), aroundAxis: SCNVector3(0.0,0.0,1.0), duration: 0.2)
+                self.field.runAction(action)
+                
+                let actionRight = SCNAction.rotateByAngle(CGFloat(-45 * M_PI / 180), aroundAxis: SCNVector3(0.0,0.0,0.5), duration: 0.3)
+                let actionRightBack = SCNAction.rotateByAngle(CGFloat(45 * M_PI / 180), aroundAxis: SCNVector3(0.0,0.0,0.5), duration: 0.3)
+                self.player.runAction(SCNAction.sequence([actionRight, actionRightBack]))
+                    
+            }else if (accelerometerData?.acceleration.x)! < -0.3 &&
+                     (accelerometerData?.acceleration.x)! > -0.9{
+                
+                let action = SCNAction.rotateByAngle(CGFloat(90 * M_PI / 180), aroundAxis: SCNVector3(0.0,0.0,1.0), duration: 0.2)
+                self.field.runAction(action)
+                
+                let actionleft = SCNAction.rotateByAngle(CGFloat(45 * M_PI / 180), aroundAxis: SCNVector3(0.0,0.0,0.5), duration: 0.3)
+                let actionleftBack = SCNAction.rotateByAngle(CGFloat(-45 * M_PI / 180), aroundAxis: SCNVector3(0.0,0.0,0.5), duration: 0.3)
+                self.player.runAction(SCNAction.sequence([actionleft, actionleftBack]))
+            }
+        }
     }
     
     func buildRecognizers(){
@@ -132,7 +163,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         let position = Int(arc4random_uniform(4)) // random position
         let enemiePosition = self.enemies[position]
         let asteroid = self.asteroid.clone()
-        asteroid.scale = SCNVector3(x:0.03, y:0.03, z:0.03)
+        asteroid.scale = SCNVector3(x:0.02, y:0.02, z:0.02)
         asteroid.position = enemiePosition.position
         asteroid.position.z = -20
         asteroid.name = ENEMY_GAME
@@ -165,6 +196,7 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
         self.audiokit.clearEngine()
+        self.motionManager.stopAccelerometerUpdates()
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -237,8 +269,9 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
     
     internal func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact){
             //TODO: UPDATE SCORE
-            lives -= 1
-        
+        lives -= 1
+//        let hitAudioSource = SCNAudioSource(named: "space-explosion.wav")
+//        SCNAction.playAudioSource(hitAudioSource!, waitForCompletion: false)
         if lives <= 0{
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.navigationController?.popViewControllerAnimated(true)
@@ -246,26 +279,16 @@ class GameVC: UIViewController, SCNSceneRendererDelegate, SCNPhysicsContactDeleg
         }
             print("Begin contact: - \(contact.nodeA.name) : \(contact.nodeB.name)")
             contact.nodeB.removeFromParentNode()
-        
     }
-    
 //    internal func physicsWorld(world: SCNPhysicsWorld, didEndContact contact: SCNPhysicsContact){
 //                print("End contant")
 //    }
 
-    
-    
-
     // MARK: IBAction
-    
     @IBAction func touchMenu(sender: UIButton) {
         self.navigationController?.popViewControllerAnimated(true)
         
     }
-    
-    
-    
-    
     
     /*
     // MARK: - Navigation
